@@ -1,22 +1,15 @@
-import math
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
 
 
-def demo(a, b, c):
-    d = b ** 2 - 4 * a * c
-    if d > 0:
-        disc = math.sqrt(d)
-        root1 = (-b + disc) / (2 * a)
-        root2 = (-b - disc) / (2 * a)
-        return root1, root2
-    elif d == 0:
-        return -b / (2 * a)
-    else:
-        return "This equation has no roots"
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 
-if __name__ == '__main__':
-    a = int(input("a: "))
-    b = int(input("b: "))
-    c = int(input("c: "))
-    result = demo(a, b, c)
-    print(result)
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
